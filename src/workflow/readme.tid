@@ -1,6 +1,12 @@
-title: $:/SiteSubtitle
+title: $:/plugins/linonetwo/workflow/readme
 type: text/vnd.tiddlywiki
 
 \define lingo-base() $:/plugins/linonetwo/workflow/languages/
 
+!! <<t "Name">>
+
 <<t "Description">>
+
+!! <<t "Features">>
+
+<<t "FeaturesDetail">>

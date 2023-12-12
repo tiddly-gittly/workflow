@@ -1,4 +1,6 @@
 title: $:/SiteTitle
 type: text/vnd.tiddlywiki
 
-<$text text="Modern.TiddlyDev" />
+\define lingo-base() $:/plugins/linonetwo/workflow/languages/
+
+<<t "Name">>
