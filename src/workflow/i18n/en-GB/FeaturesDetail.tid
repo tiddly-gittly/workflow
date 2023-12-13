@@ -1,1 +1,49 @@
 title: $:/plugins/linonetwo/workflow/languages/en-GB/FeaturesDetail
+
+!!! Flowchart Editor
+
+Any tiddler of type `application/bpmn+xml` is automatically displayed as a flowchart. The flowchart can be modified after clicking the tiddler edit button to enter edit mode. The flowchart editor uses the [[bpmn.io|https://bpmn.io/]] implementation, which supports the BPMN 2.0 standard, for details on how to use it, please see the [[bpmn.io|https://bpmn.io/]] help file.
+
+You can also use [[bpmn.io|https://bpmn.io/]]'s online flowchart editor to edit the flowchart, and after editing, you can click the Save button to save the saved XML file to TiddlyWiki by dragging the file to the Wiki. If you encounter problems after saving to TiddlyWiki, you can check if the file type is `application/bpmn+xml`.
+
+!!! Flowchart Executor
+
+The ''Workflow'' tab in the sidebar shows all '''workflow''' definitions currently in the Wiki, as well as instances of '''executing''' workflows.
+
+* Workflow definitions, i.e., tiddlers of type `application/bpmn+xml`, you can edit them and modify the flowchart.
+** But workflow definitions are like construction drawings, they are static things.
+* A workflow instance is the dynamic execution of a process created by a workflow definition, like a house under construction based on construction drawings. ** Multiple houses can be created from the same drawing, so multiple workflow instances can be created from the same workflow definition.
+** You can click a workflow instance to view the dynamic execution of the workflow, including the execution of each step and the execution log.
+** The executions of workflow instances are automatically saved as tiddlers (`$:/workflow/state/xxx`), so you can automatically restore workflow instances that didn't finish executing based on them after restarting the Wiki. These tiddlers are automatically deleted after the workflow instance has finished executing.
+** The logs of workflow instances are only automatically saved as state tiddlers (`$:/state`), so they are not retained after closing the Wiki (otherwise some frequently executed workflows would generate a huge amount of logs and flood the Wiki).
+
+!!! Flowchart Executor Plugin
+
+There are some workflow definitions that rely on plugins to be executed, such as the AI-related external services provided by the [[$:/plugins/linonetwo/workflow-ai]] plugin. These external services are automatically registered with the workflow executor when the Wiki starts, and you can see them in the "Plugins" sub-tab of the "Workflow" tab in the sidebar.
+
+These actuator plugins allow you to use more nodes when dragging a flowchart. Some flowchart definition plug-ins use these nodes and therefore depend on the corresponding flowchart executor plug-ins, and these required dependencies are automatically installed when installing via the CPL.
+
+!!! Flowchart Definition Plugins
+
+Since a flowchart definition is just a note with file type `application/bpmn+xml`, you can package several such notes as plugins and put them on the plugin market for distribution.
+
+!!! Example
+
+!!!! AI automatically adds title and tags after writing content
+
+Titles are for later to be able to flip through notes at a glance, tags are for associative categorization to facilitate 'knowledge chance encounters', they are 'burdens' to be taken on for the future, and the body is what we actually go and enter.
+
+With workflows, you can create a toolbar button that triggers a workflow (or set it to do so when you press three spaces quickly in the title or body input box, etc.) to automatically generate body text based on the title that has been entered, or to automatically generate the title based on the body text.
+
+Such workflows can be formulated visually and with zero code by reusing large language model nodes, input content nodes, and so on.
+
+
+!!!! Crawling content of interest in a loop
+
+Workflows can be set up to run in a loop, or to trigger other workflows (e.g. trigger themselves and thus amplify like a computer virus).
+
+You can drag a workflow to search the web for the latest material based on your tower of meaning, cut and hide it if there is any, and use AI to determine if it really matches your interests, delete what doesn't, add spaced repetitive tags (e.g., the `?' tag of a phishing plugin) to what does, and push it back to you for viewing later. ` tag), and then push it to you to view, equivalent to the AI version and localized decentralized RSS 4.0 version.
+
+!!!! Example of replacing private information with a person's name
+
+For example, if you want to make a note public, but hide the name of the person in it, you can use a workflow to automatically replace the selected name with `{{Personal Reference 001||Private Person}}`, which automatically creates `Personal Reference 001`, a private note with the real name of the person, e.g., `[[WangAhGou]]`, and a `Private Person` template to show `a friend` if the note can't be found. shows `A friend`. This way you can refer to people's names in public notes without worrying about the actual private information being picked up by search engines. And you can see the full information when you view it locally yourself.
