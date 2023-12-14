@@ -7,10 +7,12 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import './index.css';
 
-import { bpmnjsDom } from './ui/bpmnjs-dom';
+import { bpmnjsDom } from '../../ui/bpmnjs-dom';
 
 class BpmnJsWidget extends Widget {
   private modeler?: BpmnModeler;
+  private editTitle: string | undefined;
+  private editText: string | undefined;
 
   refresh(_changedTiddlers: IChangedTiddlers): boolean {
     return false;
@@ -20,16 +22,24 @@ class BpmnJsWidget extends Widget {
     this.parentDomNode = parent;
     this.execute();
 
-    this.modeler = new BpmnModeler({
-      container: '#js-canvas',
-      keyboard: {
-        bindTo: window,
-      },
-    });
+    if (this.modeler === undefined) {
+      this.modeler = new BpmnModeler({
+        container: '#js-canvas',
+        keyboard: {
+          bindTo: window,
+        },
+      });
+    }
     const { buttonsUl, contentDiv } = bpmnjsDom();
     // Append to the parent
     nextSibling === null ? parent.append(contentDiv, buttonsUl) : nextSibling.before(contentDiv, buttonsUl);
     this.domNodes.push(contentDiv, buttonsUl);
+    void this.openDiagram(this.editText ?? '', contentDiv);
+  }
+
+  execute() {
+    this.editTitle = this.getAttribute('tiddler', this.getVariable('currentTiddler'));
+    this.editText = this.getAttribute('text', $tw.wiki.getTiddlerText(this.editTitle) ?? '');
   }
 
   private async openDiagram(xml: string, container: HTMLDivElement) {
@@ -43,8 +53,8 @@ class BpmnJsWidget extends Widget {
       $tw.utils.addClass(container, 'with-error');
 
       const element = $tw.utils.querySelectorSafe('.error pre', container);
-      element.appendChild(
-        $tw.utils.domMaker('span', { text: error.message }),
+      element?.appendChild(
+        $tw.utils.domMaker('span', { text: (error as Error).message }),
       );
 
       console.error(error);
