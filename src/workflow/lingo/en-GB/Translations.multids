@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow/languages/en-GB/
+title: $:/plugins/linonetwo/workflow/language/en-GB/
 
 Name: Workflow
 Description: Execute workflow / data flow pipeline. And edit BPMN (Business Process Model and Notation) Diagram in a whiteboard of Flow based programming / Visual pipeline editor.
