@@ -1,0 +1,12 @@
+title: $:/plugins/linonetwo/workflow/readme
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/plugins/linonetwo/workflow/language/
+
+!! <<translate "Name" mode:"inline">>
+
+<<translate "Description">>
+
+!! <<translate "Features" mode:"inline">>
+
+<<translate "FeaturesDetail">>

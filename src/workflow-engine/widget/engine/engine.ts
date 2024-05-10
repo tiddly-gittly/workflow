@@ -14,6 +14,7 @@ class BpmnJsWidget extends Widget {
   }
 
   execute() {
+    const configuration = {};
     const api = new BPMNAPI(new BPMNServer(configuration));
   }
 }
