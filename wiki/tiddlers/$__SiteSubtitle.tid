@@ -1,6 +1,6 @@
 title: $:/SiteSubtitle
 type: text/vnd.tiddlywiki
 
-\define lingo-base() $:/plugins/linonetwo/workflow/language/
+\define lingo-base() $:/plugins/linonetwo/workflow-engine/language/
 
 <<translate "Description" mode:"inline">>
