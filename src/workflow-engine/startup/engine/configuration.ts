@@ -1,9 +1,8 @@
-import { BPMNServer, DefaultAppDelegate, IAppDelegate, ICacheManager, IConfiguration, IDataStore, ILogger, IModelsDatastore, ModelsDatastore, NoCacheManager } from 'bpmn-server';
-import { TiddlyWikiDataStore } from 'src/workflow-engine/data/tw-datastore';
+import { BPMNServer, DefaultAppDelegate, IAppDelegate, ICacheManager, IConfiguration, IDataStore, ILogger, IModelsDatastore, NoCacheManager } from 'bpmn-server';
+import { TiddlyWikiDataStore } from 'src/workflow-engine/data/twDatastore';
+import { TiddlyWikiModelsDatastore } from 'src/workflow-engine/data/twModelDataStore';
 
 export class Configuration implements IConfiguration {
-  definitionsPath: string;
-  templatesPath: string;
   timers: { forceTimersDelay: number; precision: number };
   database: {
     SQLite: {
@@ -13,8 +12,8 @@ export class Configuration implements IConfiguration {
 
   logger: ILogger;
   apiKey: string;
-  definitions(server: BPMNServer): IModelsDatastore {
-    return new ModelsDatastore(server);
+  definitions(_server: BPMNServer): IModelsDatastore {
+    return new TiddlyWikiModelsDatastore();
   }
 
   appDelegate(server: BPMNServer): IAppDelegate {
@@ -30,8 +29,6 @@ export class Configuration implements IConfiguration {
   }
 
   constructor({
-    definitionsPath,
-    templatesPath,
     timers,
     database,
     apiKey,
@@ -43,13 +40,9 @@ export class Configuration implements IConfiguration {
         db_connection: string;
       };
     };
-    definitionsPath: string;
     logger: ILogger;
-    templatesPath: string;
     timers: { forceTimersDelay: number; precision: number };
   }) {
-    this.definitionsPath = definitionsPath;
-    this.templatesPath = templatesPath;
     this.timers = timers;
     this.database = database;
     this.apiKey = apiKey;
