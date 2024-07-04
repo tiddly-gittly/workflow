@@ -1,7 +1,3 @@
-import { BPMNAPI, BPMNServer } from 'bpmn-server';
-import { Configuration } from './configuration';
-import { TwEngineLogger } from './logger';
-
 declare let exports: {
   after?: string[];
   before?: string[];
@@ -14,9 +10,12 @@ declare let exports: {
 exports.name = 'workflow-engine';
 exports.platforms = ['node'];
 exports.after = ['story'];
-exports.synchronous = true;
+exports.synchronous = false;
 
-exports.startup = function() {
+exports.startup = async function(callback) {
+  const { BPMNAPI, BPMNServer } = await import('bpmn-server');
+  const { Configuration } = await import('./configuration');
+  const { TwEngineLogger } = await import('./logger');
   const config = new Configuration({
     timers: { forceTimersDelay: 100, precision: 10 },
     database: {

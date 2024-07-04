@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow/language/en-GB/FeaturesDetail
+title: $:/plugins/linonetwo/workflow-editor/language/en-GB/FeaturesDetail
 
 !!! Flowchart Editor
 
@@ -19,7 +19,7 @@ The ''Workflow'' tab in the sidebar shows all '''workflow''' definitions current
 
 !!! Flowchart Executor Plugin
 
-There are some workflow definitions that rely on plugins to be executed, such as the AI-related external services provided by the [[$:/plugins/linonetwo/workflow-ai]] plugin. These external services are automatically registered with the workflow executor when the Wiki starts, and you can see them in the "Plugins" sub-tab of the "Workflow" tab in the sidebar.
+There are some workflow definitions that rely on plugins to be executed, such as the AI-related external services provided by the [[$:/plugins/linonetwo/workflow-editor-ai]] plugin. These external services are automatically registered with the workflow executor when the Wiki starts, and you can see them in the "Plugins" sub-tab of the "Workflow" tab in the sidebar.
 
 These actuator plugins allow you to use more nodes when dragging a flowchart. Some flowchart definition plug-ins use these nodes and therefore depend on the corresponding flowchart executor plug-ins, and these required dependencies are automatically installed when installing via the CPL.
 

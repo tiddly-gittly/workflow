@@ -1,5 +1,5 @@
 {
-  "title": "$:/plugins/linonetwo/workflow",
+  "title": "$:/plugins/linonetwo/workflow-editor",
   "author": "LinOnetwo",
   "description": "Execute workflow / data pipeline. And edit BPMN (Business Process Model and Notation) Diagram in a Flow based programming / Visual pipeline editor.",
   "core-version": ">=5.1.22",

@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow/language/zh-Hans/
+title: $:/plugins/linonetwo/workflow-editor/language/zh-Hans/
 
 Name: 工作流
 Description: 执行工作流、数据流。在可视化流程图编程环境的白板里、可视化管线编辑器上，编辑 BPMN （业务流程模型和符号）示意图。

@@ -1,10 +1,10 @@
 {
-  "title": "$:/plugins/linonetwo/workflow",
+  "title": "$:/plugins/linonetwo/workflow-engine",
   "author": "LinOnetwo",
   "description": "Execute workflow / data pipeline. And edit BPMN (Business Process Model and Notation) Diagram in a Flow based programming / Visual pipeline editor.",
   "core-version": ">=5.1.22",
   "plugin-type": "plugin",
   "version": "0.0.1",
-  "Modern.TiddlyDev#ExternalModules": "node:process mongodb",
+  "Modern.TiddlyDev#ExternalModules": "fs node:process mongodb",
   "list": "readme config tree"
 }

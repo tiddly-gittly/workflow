@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow/language/zh-Hans/FeaturesDetail
+title: $:/plugins/linonetwo/workflow-editor/language/zh-Hans/FeaturesDetail
 
 !!! 流程图编辑器
 
@@ -19,7 +19,7 @@ title: $:/plugins/linonetwo/workflow/language/zh-Hans/FeaturesDetail
 
 !!! 流程图执行器插件
 
-有一些工作流定义，是需要依赖插件才能执行的，例如 [[$:/plugins/linonetwo/workflow-ai]] 插件提供的 AI 相关外部服务。这些外部服务会在 Wiki 启动时自动注册到工作流执行器中，你可以在侧边栏的「工作流」标签页里的「插件」子标签页里看到它们。
+有一些工作流定义，是需要依赖插件才能执行的，例如 [[$:/plugins/linonetwo/workflow-editor-ai]] 插件提供的 AI 相关外部服务。这些外部服务会在 Wiki 启动时自动注册到工作流执行器中，你可以在侧边栏的「工作流」标签页里的「插件」子标签页里看到它们。
 
 这些执行器插件让你在拖流程图时可以使用更多节点。有的流程图定义插件会使用这些节点，因此会依赖相应的流程图执行器插件，在通过 CPL 安装时会自动安装这些所需的依赖。
 
