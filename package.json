@@ -4,6 +4,8 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "tiddlywiki-plugin-dev dev",
+    "dev:lan": "tiddlywiki-plugin-dev dev --lan",
+    "dev:wiki": "tiddlywiki-plugin-dev dev --write-wiki",
     "build": "npm run clean && tiddlywiki-plugin-dev build",
     "publish": "npm run clean && tiddlywiki-plugin-dev publish",
     "reset": "rimraf ./**/node_modules",
@@ -52,5 +54,10 @@
     "npm-check-updates": "^16.14.20",
     "tiddlywiki": "^5.3.4",
     "tiddlywiki-plugin-dev": "^0.2.1"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "bpmn-server@2.2.8": "patches/bpmn-server@2.2.8.patch"
+    }
   }
 }

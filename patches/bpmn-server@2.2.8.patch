@@ -1,0 +1,69 @@
+diff --git a/dist/common/DefaultConfiguration.d.ts b/dist/common/DefaultConfiguration.d.ts
+index c29ba67a34676ff262b4a0d63cd06f222d7c4de4..72dddf4fd138b709271b53d422ab27c03d7edee0 100644
+--- a/dist/common/DefaultConfiguration.d.ts
++++ b/dist/common/DefaultConfiguration.d.ts
+@@ -1,8 +1,6 @@
+ import { ModelsDatastore } from '../datastore/ModelsDatastore';
+ import { IConfiguration, DataStore, NoCacheManager, ILogger, IAppDelegate } from '../';
+ declare class Configuration implements IConfiguration {
+-    definitionsPath: string;
+-    templatesPath: string;
+     timers: {
+         forceTimersDelay: number;
+         precision: number;
+diff --git a/dist/common/DefaultConfiguration.js b/dist/common/DefaultConfiguration.js
+index 906edb32519a2f0e15fffe7bc18e101c94982f79..a6d73f506286c9f47e02a333d5cbaf55d6508ba1 100644
+--- a/dist/common/DefaultConfiguration.js
++++ b/dist/common/DefaultConfiguration.js
+@@ -5,7 +5,7 @@ const ModelsDatastore_1 = require("../datastore/ModelsDatastore");
+ const DefaultAppDelegate_1 = require("../engine/DefaultAppDelegate");
+ const __1 = require("../");
+ const _1 = require("./");
+-let definitionsPath = __dirname + '/processes/';
++// let definitionsPath = __dirname + '/processes/';
+ class Configuration {
+     definitions(server) {
+         return new ModelsDatastore_1.ModelsDatastore(server);
+@@ -34,8 +34,8 @@ class Configuration {
+ }
+ exports.Configuration = Configuration;
+ var defaultConfiguration = new Configuration({
+-    definitionsPath: definitionsPath,
+-    templatesPath: __dirname + '/emailTemplates',
++    // definitionsPath: definitionsPath,
++    // templatesPath: __dirname + '/emailTemplates',
+     timers: {
+         forceTimersDelay: 1000,
+         precision: 3000,
+diff --git a/dist/interfaces/datastore.d.ts b/dist/interfaces/datastore.d.ts
+index 76916f750685c95a331db309c003e2fe62f30feb..d48627ade36e016615840db52ea72323d6360f89 100644
+--- a/dist/interfaces/datastore.d.ts
++++ b/dist/interfaces/datastore.d.ts
+@@ -32,5 +32,6 @@ interface IModelsDatastore {
+     saveModel(model: IBpmnModelData): Promise<boolean>;
+     deleteModel(name: any, owner: any): Promise<void>;
+     renameModel(name: any, newName: any, owner: any): Promise<boolean>;
++    rebuild(): any;
+ }
+ export { IDataStore, IModelsDatastore };
+diff --git a/dist/server/BPMNServer.js b/dist/server/BPMNServer.js
+index 8057dd10c4cc903c4854c10b09b0fb97884a7708..5b80e279e8ac705fdc2373ffa02235c9e83548bb 100644
+--- a/dist/server/BPMNServer.js
++++ b/dist/server/BPMNServer.js
+@@ -5,7 +5,7 @@ const Logger_1 = require("../common/Logger");
+ const Engine_1 = require("./Engine");
+ const Cron_1 = require("./Cron");
+ const events_1 = require("events");
+-console.log('BPMNServer from ', __filename);
++// console.log('BPMNServer from ', __filename);
+ process.on('uncaughtException', function (err) {
+     console.log('***************BPMNServer UNCAUGHT ERROR***********');
+     try {
+@@ -72,6 +72,7 @@ class BPMNServer {
+             memoryUsage: memoryUsage() };
+     }
+     static getVersion() {
++        if (typeof __dirname === 'undefined') return 'unknown';
+         const configPath = __dirname + '/../../package.json';
+         if (fs.existsSync(configPath)) {
+             var configuration = JSON.parse(fs.readFileSync(configPath, 'utf8'));
