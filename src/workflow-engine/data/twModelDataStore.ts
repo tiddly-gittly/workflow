@@ -16,30 +16,30 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     return $tw.wiki.filterTiddlers(`[tag[$:/tags/BPMNDef]] ${filterString}`);
   }
 
-  async getSource(name: string, owner: string): Promise<string> {
-    const title = `$:/workflow/definition/${name}_${owner}`;
+  async getSource(name: string): Promise<string> {
+    const title = `$:/workflow/definition/${name}`;
     const tiddler = $tw.wiki.getTiddler(title);
-    if (!tiddler) throw new Error(`Source not found for ${name} by ${owner}`);
+    if (!tiddler) throw new Error(`Source not found for ${name}`);
     return tiddler.fields.text;
   }
 
-  async getSVG(name: string, owner: string): Promise<string> {
-    const title = `$:/workflow/svg/${name}_${owner}`;
+  async getSVG(name: string): Promise<string> {
+    const title = `$:/workflow/svg/${name}`;
     const tiddler = $tw.wiki.getTiddler(title);
-    if (!tiddler) throw new Error(`SVG not found for ${name} by ${owner}`);
+    if (!tiddler) throw new Error(`SVG not found for ${name}`);
     return tiddler.fields.text;
   }
 
-  async save(name: string, bpmn: any, svg?: any, owner?: any): Promise<boolean> {
-    const bpmnTitle = `$:/workflow/definition/${name}_${owner}`;
-    const svgTitle = `$:/workflow/svg/${name}_${owner}`;
+  async save(name: string, bpmn: any, svg?: any): Promise<boolean> {
+    const bpmnTitle = `$:/workflow/definition/${name}`;
+    const svgTitle = `$:/workflow/svg/${name}`;
     try {
       $tw.wiki.addTiddler(
         new $tw.Tiddler({
           title: bpmnTitle,
-          text: JSON.stringify(bpmn),
+          text: bpmn,
           tags: ['$:/tags/BPMNDef'],
-          type: 'application/json',
+          type: 'application/bpmn+xml',
         }),
       );
       if (svg) {
@@ -59,23 +59,23 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     }
   }
 
-  async load(name: string, owner: string): Promise<IDefinition> {
-    const title = `$:/workflow/definition/${name}_${owner}`;
+  async load(name: string): Promise<IDefinition> {
+    const title = `$:/workflow/definition/${name}`;
     const tiddler = $tw.wiki.getTiddler(title);
-    if (!tiddler) throw new Error(`Definition not found for ${name} by ${owner}`);
+    if (!tiddler) throw new Error(`Definition not found for ${name}`);
     return JSON.parse(tiddler.fields.text);
   }
 
-  async loadModel(name: string, owner: string): Promise<IBpmnModelData> {
-    const title = `$:/workflow/definition/${name}_${owner}`;
+  async loadModel(name: string): Promise<IBpmnModelData> {
+    const title = `$:/workflow/definition/${name}`;
     const tiddler = $tw.wiki.getTiddler(title);
-    if (!tiddler) throw new Error(`Model not found for ${name} by ${owner}`);
+    if (!tiddler) throw new Error(`Model not found for ${name}`);
     return JSON.parse(tiddler.fields.text);
   }
 
-  async findEvents(query: any, owner: string): Promise<any[]> {
+  async findEvents(query: any): Promise<any[]> {
     const filterString = Object.keys(query).map(key => `[field:${key}[${query[key]}]]`).join('');
-    const titles = $tw.wiki.filterTiddlers(`[tag[$:/tags/BPMNDef]] ${filterString}`);
+    const titles = $tw.wiki.filterTiddlers(`[tag[$:/tags/BPMNEvent]] ${filterString}`);
     return titles.map(title => {
       const tiddler = $tw.wiki.getTiddler(title);
       return tiddler ? JSON.parse(tiddler.fields.text) : null;
@@ -91,7 +91,7 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
   }
 
   async saveModel(model: IBpmnModelData): Promise<boolean> {
-    const title = `$:/workflow/definition/${model.name}_${model.owner}`;
+    const title = `$:/workflow/definition/${model.name}`;
     try {
       $tw.wiki.addTiddler(
         new $tw.Tiddler({
@@ -108,8 +108,8 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     }
   }
 
-  async deleteModel(name: string, owner: string): Promise<void> {
-    const title = `$:/workflow/definition/${name}_${owner}`;
+  async deleteModel(name: string): Promise<void> {
+    const title = `$:/workflow/definition/${name}`;
     try {
       $tw.wiki.deleteTiddler(title);
     } catch (error) {
@@ -118,12 +118,12 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     }
   }
 
-  async renameModel(name: string, newName: string, owner: string): Promise<boolean> {
-    const oldTitle = `$:/workflow/definition/${name}_${owner}`;
-    const newTitle = `$:/workflow/definition/${newName}_${owner}`;
+  async renameModel(name: string, newName: string): Promise<boolean> {
+    const oldTitle = `$:/workflow/definition/${name}`;
+    const newTitle = `$:/workflow/definition/${newName}`;
     try {
       const tiddler = $tw.wiki.getTiddler(oldTitle);
-      if (!tiddler) throw new Error(`Model not found for ${name} by ${owner}`);
+      if (!tiddler) throw new Error(`Model not found for ${name}`);
       const newTiddler = new $tw.Tiddler(tiddler, { title: newTitle });
       $tw.wiki.addTiddler(newTiddler);
       $tw.wiki.deleteTiddler(oldTitle);
@@ -134,5 +134,7 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     }
   }
 
-  async rebuild() {}
+  async rebuild(): Promise<void> {
+    // Placeholder for the rebuild method, if necessary.
+  }
 }
