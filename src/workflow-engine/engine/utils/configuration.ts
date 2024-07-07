@@ -1,6 +1,7 @@
-import { BPMNServer, DefaultAppDelegate, IAppDelegate, ICacheManager, IConfiguration, IDataStore, ILogger, IModelsDatastore, NoCacheManager } from 'bpmn-server';
-import { TiddlyWikiDataStore } from 'src/workflow-engine/data/twDatastore';
-import { TiddlyWikiModelsDatastore } from 'src/workflow-engine/data/twModelDataStore';
+import { BPMNServer, IAppDelegate, ICacheManager, IConfiguration, IDataStore, ILogger, IModelsDatastore, NoCacheManager } from 'bpmn-server';
+import { TiddlywikiAppDelegate } from 'src/workflow-engine/engine/data/twAppDelegate';
+import { TiddlyWikiDataStore } from 'src/workflow-engine/engine/data/twDatastore';
+import { TiddlyWikiModelsDatastore } from 'src/workflow-engine/engine/data/twModelDataStore';
 
 export class Configuration implements IConfiguration {
   timers: { forceTimersDelay: number; precision: number };
@@ -17,7 +18,7 @@ export class Configuration implements IConfiguration {
   }
 
   appDelegate(server: BPMNServer): IAppDelegate {
-    return new DefaultAppDelegate(server);
+    return new TiddlywikiAppDelegate(server);
   }
 
   dataStore(server: BPMNServer): IDataStore {

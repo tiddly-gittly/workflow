@@ -29,7 +29,7 @@ exports.startup = async function(callback: () => void) {
     logger: new TwEngineLogger(),
     apiKey: '',
   });
-  const api = new BPMNAPI(new BPMNServer(config));
+  const api = new BPMNAPI(new BPMNServer(config, config.logger));
   callback();
-  await api.engine.start('log-console.bpmn', {}, SystemUser);
+  await api.engine.start('log-console.bpmn', { key: 'value' }, SystemUser);
 };
