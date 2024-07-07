@@ -1,3 +1,5 @@
+import { SystemUser } from 'bpmn-server';
+
 declare let exports: {
   after?: string[];
   before?: string[];
@@ -12,7 +14,7 @@ exports.platforms = ['node'];
 exports.after = ['story'];
 exports.synchronous = false;
 
-exports.startup = async function(callback) {
+exports.startup = async function(callback: () => void) {
   const { BPMNAPI, BPMNServer } = await import('bpmn-server');
   const { Configuration } = await import('./configuration');
   const { TwEngineLogger } = await import('./logger');
@@ -28,4 +30,6 @@ exports.startup = async function(callback) {
     apiKey: '',
   });
   const api = new BPMNAPI(new BPMNServer(config));
+  callback();
+  await api.engine.start('log-console.bpmn', {}, SystemUser);
 };

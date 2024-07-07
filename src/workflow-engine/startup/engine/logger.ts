@@ -47,8 +47,8 @@ export class TwEngineLogger implements ILogger {
     }
   }
 
-  error(error: any): void {
-    this.messages.push({ level: 'error', message: error });
+  error(error: Error): void {
+    this.messages.push({ level: 'error', message: error, stack: error.stack });
     if (this.toConsole) {
       this.twLogger?.alert?.(error);
     }

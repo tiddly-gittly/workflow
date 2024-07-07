@@ -16,10 +16,14 @@ export class TiddlyWikiModelsDatastore implements IModelsDatastore {
     return $tw.wiki.filterTiddlers(`[tag[$:/tags/BPMNDef]] ${filterString}`);
   }
 
+  /**
+   * Called when the engine needs to get the source of a BPMN file (i.e. when engine is starting a process instance)
+   * @param name bpmn file name
+   * @returns 
+   */
   async getSource(name: string): Promise<string> {
-    const title = `$:/workflow/definition/${name}`;
-    const tiddler = $tw.wiki.getTiddler(title);
-    if (!tiddler) throw new Error(`Source not found for ${name}`);
+    const tiddler = $tw.wiki.getTiddler(name);
+    if (tiddler === undefined) throw new Error(`BPMN tiddler not found for title "${name}"`);
     return tiddler.fields.text;
   }
 

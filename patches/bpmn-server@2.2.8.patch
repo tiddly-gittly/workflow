@@ -35,6 +35,19 @@ index 906edb32519a2f0e15fffe7bc18e101c94982f79..a6d73f506286c9f47e02a333d5cbaf55
      timers: {
          forceTimersDelay: 1000,
          precision: 3000,
+diff --git a/dist/engine/Execution.js b/dist/engine/Execution.js
+index 498a2501abe3817d94628ad2d8b67a1ea5821ede..a287cc977c58ec6b1104256351cd375cba52f7c7 100644
+--- a/dist/engine/Execution.js
++++ b/dist/engine/Execution.js
+@@ -19,7 +19,7 @@ const __1 = require("../");
+ const __2 = require("../");
+ const server_1 = require("../server");
+ const Model_1 = require("./Model");
+-const { v4: uuidv4 } = require('uuid');
++const { v4: uuidv4 } = require('@lukeed/uuid');
+ /**
+  *  is accessed two ways:
+  *      execute - start process
 diff --git a/dist/interfaces/datastore.d.ts b/dist/interfaces/datastore.d.ts
 index 76916f750685c95a331db309c003e2fe62f30feb..d48627ade36e016615840db52ea72323d6360f89 100644
 --- a/dist/interfaces/datastore.d.ts
@@ -47,18 +60,40 @@ index 76916f750685c95a331db309c003e2fe62f30feb..d48627ade36e016615840db52ea72323
  }
  export { IDataStore, IModelsDatastore };
 diff --git a/dist/server/BPMNServer.js b/dist/server/BPMNServer.js
-index 8057dd10c4cc903c4854c10b09b0fb97884a7708..5b80e279e8ac705fdc2373ffa02235c9e83548bb 100644
+index 8057dd10c4cc903c4854c10b09b0fb97884a7708..2d596c50fa8d9a0b04ccfbbd0c13f5a0b623b92a 100644
 --- a/dist/server/BPMNServer.js
 +++ b/dist/server/BPMNServer.js
-@@ -5,7 +5,7 @@ const Logger_1 = require("../common/Logger");
+@@ -5,18 +5,18 @@ const Logger_1 = require("../common/Logger");
  const Engine_1 = require("./Engine");
  const Cron_1 = require("./Cron");
  const events_1 = require("events");
 -console.log('BPMNServer from ', __filename);
+-process.on('uncaughtException', function (err) {
+-    console.log('***************BPMNServer UNCAUGHT ERROR***********');
+-    try {
+-        BPMNServer.getInstance().error = err;
+-        BPMNServer.getInstance().logger.reportError(err);
+-    }
+-    catch (exc) {
+-        console.log(err);
+-    }
+-    return;
+-});
 +// console.log('BPMNServer from ', __filename);
- process.on('uncaughtException', function (err) {
-     console.log('***************BPMNServer UNCAUGHT ERROR***********');
-     try {
++// process.on('uncaughtException', function (err) {
++//     console.log('***************BPMNServer UNCAUGHT ERROR***********');
++//     try {
++//         BPMNServer.getInstance().error = err;
++//         BPMNServer.getInstance().logger.reportError(err);
++//     }
++//     catch (exc) {
++//         console.log(err);
++//     }
++//     return;
++// });
+ const fs = require('fs');
+ /**
+  *	The main class of Server Layer
 @@ -72,6 +72,7 @@ class BPMNServer {
              memoryUsage: memoryUsage() };
      }

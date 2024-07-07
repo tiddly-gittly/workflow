@@ -1,33 +1,33 @@
-import { ServerComponent, IDataStore, Execution, InstanceLocker, IBPMNServer, IItemData, IInstanceData } from "bpmn-server";
+import { Execution, IBPMNServer, IConfiguration, IDataStore, IInstanceData, IItemData, ServerComponent } from 'bpmn-server';
+import { TiddlyWikiInstanceLocker } from './twLocker';
 
 const instanceTag = '$:/tags/WorkflowInstance';
 const itemTag = '$:/tags/WorkflowItem';
 
 export class TiddlyWikiDataStore extends ServerComponent implements IDataStore {
-
-  dbConfiguration: any;
+  dbConfiguration: IConfiguration['database'];
   db: typeof $tw = $tw;
   execution: Execution | undefined;
   isModified = false;
   isRunning = false;
   inSaving = false;
   promises = [];
-  locker: InstanceLocker;
+  locker: TiddlyWikiInstanceLocker;
 
   constructor(server: IBPMNServer) {
     super(server);
-    this.dbConfiguration = this.configuration.database.MongoDB;
-    this.locker = new InstanceLocker(this);
+    this.dbConfiguration = {};
+    this.locker = new TiddlyWikiInstanceLocker(this);
   }
 
   async save(instance: any): Promise<void> {
-    return await this.saveInstance(instance);
+    await this.saveInstance(instance);
   }
 
-  async loadInstance(instanceId: string): Promise<{ instance: any; items: any[]; }> {
+  async loadInstance(instanceId: string): Promise<{ instance: any; items: any[] }> {
     const instanceTiddler = this.db.wiki.getTiddler(`$:/workflow/instance/${instanceId}`);
     if (!instanceTiddler) {
-      this.logger.error("Instance not found for this ID");
+      this.logger.error('Instance not found for this ID');
       return null;
     }
     const instance = JSON.parse(instanceTiddler.fields.text);
@@ -42,78 +42,86 @@ export class TiddlyWikiDataStore extends ServerComponent implements IDataStore {
   private getItemsFromInstances(instances: any[], condition: any = null): any[] {
     const items = [];
     instances.forEach(instance => {
-      instance.items.forEach(i => {
+      instance.items.forEach(index => {
         let pass = true;
         if (condition) {
           const keys = Object.keys(condition);
           keys.forEach(key => {
-            let cond = condition[key];
-            let val = i;
+            const cond = condition[key];
+            let value = index;
             if (key.includes('.')) {
-              let ks = key.split('.');
+              const ks = key.split('.');
               ks.forEach(k => {
-                val = val[k];
+                value = value[k];
               });
-              if (val !== cond) pass = false;
-            } else if (Array.isArray(i[key])) {
-              if (!i[key].includes(cond)) pass = false;
+              if (value !== cond) pass = false;
+            } else if (Array.isArray(index[key])) {
+              if (!index[key].includes(cond)) pass = false;
             } else if (typeof cond === 'object' && !Array.isArray(cond) && cond !== null) {
-              pass = this.parseComplexCondition(cond, i[key]);
-            } else if (i[key] != cond) pass = false;
+              pass = this.parseComplexCondition(cond, index[key]);
+            } else if (index[key] != cond) pass = false;
           });
         }
         if (pass) {
-          i['processName'] = instance.name;
-          i['data'] = instance.data;
-          i['instanceId'] = instance.id;
-          items.push(i);
+          index.processName = instance.name;
+          index.data = instance.data;
+          index.instanceId = instance.id;
+          items.push(index);
         }
       });
     });
     return items.sort((a, b) => (a.seq - b.seq));
   }
 
-  private parseComplexCondition(condition: any, val: any): boolean {
-    let ret = false;
-    if (!val) return false;
+  private parseComplexCondition(condition: any, value: any): boolean {
+    let returnValue = false;
+    if (!value) return false;
     Object.keys(condition).forEach(cond => {
-      let term = condition[cond];
+      const term = condition[cond];
       switch (cond) {
-        case '$gte':
-          ret = (val > term) || (val === term);
+        case '$gte': {
+          returnValue = (value > term) || (value === term);
           break;
-        case '$gt':
-          ret = (val > term);
+        }
+        case '$gt': {
+          returnValue = value > term;
           break;
-        case '$eq':
-          ret = (val === term);
+        }
+        case '$eq': {
+          returnValue = value === term;
           break;
-        case '$lte':
-          ret = (val < term) || (val === term);
+        }
+        case '$lte': {
+          returnValue = (value < term) || (value === term);
           break;
-        case '$lt':
-          ret = (val < term);
+        }
+        case '$lt': {
+          returnValue = value < term;
           break;
-        default:
-          ret = false;
+        }
+        default: {
+          returnValue = false;
           break;
+        }
       }
-      if (!ret) return false;
+      if (!returnValue) return false;
     });
-    return ret;
+    return returnValue;
   }
 
   static seq = 0;
   private async saveInstance(instance: any): Promise<void> {
     try {
       const title = instance.type === 'instance' ? `$:/workflow/instance/${instance.id}` : `$:/workflow/item/${instance.id}`;
-      this.db.wiki.addTiddler(new this.db.Tiddler({
-        title: title,
-        text: JSON.stringify(instance),
-        type: "application/json",
-        tags: [instanceTag]
-      }));
-      if (!instance.saved) {
+      this.db.wiki.addTiddler(
+        new this.db.Tiddler({
+          title,
+          text: JSON.stringify(instance),
+          type: 'application/json',
+          tags: [instanceTag],
+        }),
+      );
+      if (instance.saved) {
         instance.saved = new Date().toISOString();
       } else {
         instance.saved = new Date().toISOString();
@@ -167,7 +175,9 @@ export class TiddlyWikiDataStore extends ServerComponent implements IDataStore {
   async deleteInstances(query?: any): Promise<void> {
     const filterString = query ? Object.keys(query).map(key => `[all[shadows]tag[${instanceTag}]field:${key}[${query[key]}]]`).join('') : '[all[tiddlers]]';
     const titles = this.db.wiki.filterTiddlers(filterString);
-    titles.forEach(title => this.db.wiki.deleteTiddler(title));
+    titles.forEach(title => {
+      this.db.wiki.deleteTiddler(title);
+    });
   }
 
   install(): void {

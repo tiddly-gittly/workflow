@@ -48,6 +48,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@lukeed/uuid": "^2.0.1",
     "bpmn-engine": "^22.0.1",
     "bpmn-js": "^17.9.0",
     "bpmn-js-properties-panel": "^5.18.0",
