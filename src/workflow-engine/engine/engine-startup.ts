@@ -5,7 +5,7 @@ declare let exports: {
   before?: string[];
   name: string;
   platforms: string[];
-  startup: () => void;
+  startup: (callback: () => void) => Promise<void>;
   synchronous: boolean;
 };
 
@@ -16,8 +16,8 @@ exports.synchronous = false;
 
 exports.startup = async function(callback: () => void) {
   const { BPMNAPI, BPMNServer } = await import('bpmn-server');
-  const { Configuration } = await import('./configuration');
-  const { TwEngineLogger } = await import('./logger');
+  const { Configuration } = await import('./utils/configuration');
+  const { TwEngineLogger } = await import('./utils/logger');
   const config = new Configuration({
     timers: { forceTimersDelay: 100, precision: 10 },
     database: {

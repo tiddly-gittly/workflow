@@ -1,5 +1,5 @@
 import { Execution, IBPMNServer, IConfiguration, IDataStore, IInstanceData, IItemData, ServerComponent } from 'bpmn-server';
-import { TiddlyWikiInstanceLocker } from './twLocker';
+import { TiddlyWikiInstanceLocker } from '../utils/twLocker';
 
 const instanceTag = '$:/tags/WorkflowInstance';
 const itemTag = '$:/tags/WorkflowItem';
