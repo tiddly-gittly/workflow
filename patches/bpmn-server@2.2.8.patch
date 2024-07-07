@@ -35,6 +35,19 @@ index 906edb32519a2f0e15fffe7bc18e101c94982f79..a6d73f506286c9f47e02a333d5cbaf55
      timers: {
          forceTimersDelay: 1000,
          precision: 3000,
+diff --git a/dist/elements/Tasks.js b/dist/elements/Tasks.js
+index f4cea3e6b0fb1eac3437f80a1190126b03c90f84..91bbb6f8d2c27c9a0a526e950f5a4ffb3b213493 100644
+--- a/dist/elements/Tasks.js
++++ b/dist/elements/Tasks.js
+@@ -81,7 +81,7 @@ class ServiceTask extends Node_1.Node {
+                 ret = yield obj[method](item.input, item.context);
+             }
+             else {
+-                ret = yield appDelegate['serviceCalled'](item.input, item.context);
++                ret = yield appDelegate['serviceCalled'](item.input, item.context, item);
+             }
+             item.log("service returned " + ret);
+             item.output = ret;
 diff --git a/dist/engine/Execution.js b/dist/engine/Execution.js
 index 498a2501abe3817d94628ad2d8b67a1ea5821ede..a287cc977c58ec6b1104256351cd375cba52f7c7 100644
 --- a/dist/engine/Execution.js
