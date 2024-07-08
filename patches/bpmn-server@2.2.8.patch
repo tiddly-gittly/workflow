@@ -48,6 +48,21 @@ index f4cea3e6b0fb1eac3437f80a1190126b03c90f84..3a50d117aa8eba250973d7544f2f52ad
              }
              item.log("service returned " + ret);
              item.output = ret;
+diff --git a/dist/engine/DefaultAppDelegate.d.ts b/dist/engine/DefaultAppDelegate.d.ts
+index 958e995425d0790563cf443bb8dbbe5172a82d4c..ae2eede724d31fb9ba916621759454143df42a66 100644
+--- a/dist/engine/DefaultAppDelegate.d.ts
++++ b/dist/engine/DefaultAppDelegate.d.ts
+@@ -1,8 +1,8 @@
+-import { IExecution, Item, IAppDelegate } from "../";
++import { IExecution, Item, IAppDelegate, IServiceProvider } from "../";
+ declare class DefaultAppDelegate implements IAppDelegate {
+     server: any;
+     constructor(server: any);
+-    getServicesProvider(context: any): Promise<this>;
++    getServicesProvider(context: any): this | IServiceProvider | Promise<this> | Promise<IServiceProvider>;
+     startUp(options: any): void;
+     sendEmail(to: any, msg: any, body: any): void;
+     get moddleOptions(): {
 diff --git a/dist/engine/Execution.js b/dist/engine/Execution.js
 index 498a2501abe3817d94628ad2d8b67a1ea5821ede..a287cc977c58ec6b1104256351cd375cba52f7c7 100644
 --- a/dist/engine/Execution.js
@@ -61,6 +76,44 @@ index 498a2501abe3817d94628ad2d8b67a1ea5821ede..a287cc977c58ec6b1104256351cd375c
  /**
   *  is accessed two ways:
   *      execute - start process
+diff --git a/dist/interfaces/common.d.ts b/dist/interfaces/common.d.ts
+index 9f1b96027aa5599bc3e1a79f2ced11d5fc40c1ea..86daf08d91cbae4f7350d549b3a49c317393e7b4 100644
+--- a/dist/interfaces/common.d.ts
++++ b/dist/interfaces/common.d.ts
+@@ -1,4 +1,4 @@
+-import { IItem, IModelsDatastore, IDataStore, ICacheManager } from '../';
++import { IItem, IModelsDatastore, IDataStore, ICacheManager, IExecution } from '../';
+ interface IConfiguration {
+     definitionsPath: string;
+     templatesPath: string;
+@@ -58,6 +58,12 @@ interface ILogger {
+     reportError(err: any): void;
+     save(filename: any): Promise<void>;
+ }
++/**
++ * Object to respond to all named services
++ */
++interface IServiceProvider {
++    [serviceName: string]: CallableFunction;
++}
+ /**
+  *  Application Delegate Object to respond to various events and services:
+  *
+@@ -69,7 +75,7 @@ interface ILogger {
+  * */
+ interface IAppDelegate {
+     moddleOptions: any;
+-    getServicesProvider(IExecution: any): any;
++    getServicesProvider(execution: IExecution): IAppDelegate | IServiceProvider | Promise<IAppDelegate> | Promise<IServiceProvider>;
+     sendEmail(to: any, msg: any, body: any): any;
+     executionStarted(execution: any): any;
+     startUp(options: any): any;
+@@ -91,4 +97,4 @@ interface IAppDelegate {
+      */
+     serviceCalled(serviceName: any, data: any, item: IItem): any;
+ }
+-export { ILogger, IAppDelegate, IConfiguration };
++export { ILogger, IAppDelegate, IConfiguration, IServiceProvider };
 diff --git a/dist/interfaces/datastore.d.ts b/dist/interfaces/datastore.d.ts
 index 76916f750685c95a331db309c003e2fe62f30feb..d48627ade36e016615840db52ea72323d6360f89 100644
 --- a/dist/interfaces/datastore.d.ts

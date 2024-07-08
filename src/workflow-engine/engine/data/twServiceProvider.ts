@@ -4,4 +4,9 @@ export const twServiceProvider: IServiceProvider = {
   'log-console'(input: Record<string, unknown>, _execution: Execution) {
     console.log('log-console service called:', input);
   },
+  a: {
+    b: () => {
+      console.log('b is called');
+    },
+  },
 };

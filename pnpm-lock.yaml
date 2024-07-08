@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   bpmn-server@2.2.8:
-    hash: 7nio7qg4vylpu3no66j4xlobii
+    hash: zzwozicuhtzwkjrc3t7rwnkfoa
     path: patches/bpmn-server@2.2.8.patch
 
 importers:
@@ -27,7 +27,7 @@ importers:
         version: 5.18.0(@bpmn-io/properties-panel@3.13.0(@lezer/common@1.1.2))(bpmn-js@17.9.0)(camunda-bpmn-js-behaviors@1.2.2(bpmn-js@17.9.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.0.0))(diagram-js@14.8.0)
       bpmn-server:
         specifier: 2.2.8
-        version: 2.2.8(patch_hash=7nio7qg4vylpu3no66j4xlobii)(encoding@0.1.13)(typedoc@0.25.13(typescript@5.5.3))
+        version: 2.2.8(patch_hash=zzwozicuhtzwkjrc3t7rwnkfoa)(encoding@0.1.13)(typedoc@0.25.13(typescript@5.5.3))
       npm-check-updates:
         specifier: ^16.14.20
         version: 16.14.20
@@ -7512,7 +7512,7 @@ snapshots:
       moddle: 7.0.0
       moddle-xml: 11.0.0(moddle@7.0.0)
 
-  bpmn-server@2.2.8(patch_hash=7nio7qg4vylpu3no66j4xlobii)(encoding@0.1.13)(typedoc@0.25.13(typescript@5.5.3)):
+  bpmn-server@2.2.8(patch_hash=zzwozicuhtzwkjrc3t7rwnkfoa)(encoding@0.1.13)(typedoc@0.25.13(typescript@5.5.3)):
     dependencies:
       bcrypt: 5.1.1(encoding@0.1.13)
       body-parser: 1.20.2
