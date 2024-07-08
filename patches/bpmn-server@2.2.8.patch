@@ -36,7 +36,7 @@ index 906edb32519a2f0e15fffe7bc18e101c94982f79..a6d73f506286c9f47e02a333d5cbaf55
          forceTimersDelay: 1000,
          precision: 3000,
 diff --git a/dist/elements/Tasks.js b/dist/elements/Tasks.js
-index f4cea3e6b0fb1eac3437f80a1190126b03c90f84..91bbb6f8d2c27c9a0a526e950f5a4ffb3b213493 100644
+index f4cea3e6b0fb1eac3437f80a1190126b03c90f84..3a50d117aa8eba250973d7544f2f52ad24160400 100644
 --- a/dist/elements/Tasks.js
 +++ b/dist/elements/Tasks.js
 @@ -81,7 +81,7 @@ class ServiceTask extends Node_1.Node {
@@ -44,7 +44,7 @@ index f4cea3e6b0fb1eac3437f80a1190126b03c90f84..91bbb6f8d2c27c9a0a526e950f5a4ffb
              }
              else {
 -                ret = yield appDelegate['serviceCalled'](item.input, item.context);
-+                ret = yield appDelegate['serviceCalled'](item.input, item.context, item);
++                ret = yield appDelegate['serviceCalled'](item.input, item.context, item, this.serviceName);
              }
              item.log("service returned " + ret);
              item.output = ret;
@@ -115,3 +115,31 @@ index 8057dd10c4cc903c4854c10b09b0fb97884a7708..2d596c50fa8d9a0b04ccfbbd0c13f5a0
          const configPath = __dirname + '/../../package.json';
          if (fs.existsSync(configPath)) {
              var configuration = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+diff --git a/src/interfaces/common.ts b/src/interfaces/common.ts
+index 909e1c012596c501b15b77edb6002352a2ff4d1c..fe8a0f86db4f01d74fad88617a257c6155742fcc 100644
+--- a/src/interfaces/common.ts
++++ b/src/interfaces/common.ts
+@@ -68,6 +68,14 @@ interface ILogger {
+     reportError(err: any): void;
+     save(filename: any): Promise<void>;
+ }
++
++/**
++ * Object to respond to all named services
++ */
++export interface IServiceProvider {
++    [serviceName: string]: CallableFunction;
++}
++
+ /**
+  *  Application Delegate Object to respond to various events and services:
+  *  
+@@ -79,7 +87,7 @@ interface ILogger {
+  * */
+ interface IAppDelegate {
+     moddleOptions;
+-    getServicesProvider(IExecution): any;       // to respond to all named services
++    getServicesProvider(execution: IExecution): IAppDelegate | IServiceProvider | Promise<IAppDelegate> | Promise<IServiceProvider>;
+     sendEmail(to, msg, body);
+     executionStarted(execution);
+     startUp(options); // start of server

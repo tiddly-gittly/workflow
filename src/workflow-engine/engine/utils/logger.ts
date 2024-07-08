@@ -10,7 +10,8 @@ export class TwEngineLogger implements ILogger {
   private readonly twLogger?: Logger;
   constructor() {
     this.setOptions({ toConsole: true, toFile: false, callback: undefined });
-    this.twLogger = new $tw.utils.Logger('tw-datastore');
+    // enable this will log all BPMN execution intermediate steps!
+    // this.twLogger = new $tw.utils.Logger('tw-datastore');
   }
 
   setOptions({ toConsole, toFile, callback }: { callback?: CallableFunction; toConsole: boolean; toFile: boolean }): void {
