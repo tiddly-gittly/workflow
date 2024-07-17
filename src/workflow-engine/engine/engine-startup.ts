@@ -1,5 +1,3 @@
-import { SystemUser } from 'bpmn-server';
-
 declare let exports: {
   after?: string[];
   before?: string[];
@@ -10,12 +8,16 @@ declare let exports: {
 };
 
 exports.name = 'workflow-engine';
-exports.platforms = ['node'];
+exports.platforms = ['node', 'browser'];
 exports.after = ['story'];
 exports.synchronous = false;
 
 exports.startup = async function(callback: () => void) {
-  const { BPMNAPI, BPMNServer } = await import('bpmn-server');
+  // DEBUG: console exports.startup
+  console.log(`exports.startup`, exports.startup);
+  const { BPMNAPI, BPMNServer, SystemUser } = await import('bpmn-server');
+  // DEBUG: console
+  console.log(`BPMNServer`);
   const { Configuration } = await import('./utils/configuration');
   const { TwEngineLogger } = await import('./utils/logger');
   const config = new Configuration({

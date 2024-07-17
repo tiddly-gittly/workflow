@@ -56,10 +56,5 @@
     "npm-check-updates": "^16.14.20",
     "tiddlywiki": "^5.3.4",
     "tiddlywiki-plugin-dev": "^0.2.1"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "bpmn-server@2.2.8": "patches/bpmn-server@2.2.8.patch"
-    }
   }
 }
