@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModalFooter
+title: $:/plugins/linonetwo/workflow-editor/ui/PageLayout/CreateNewTiddlerModalFooter
 
 \procedure temp-tiddler() $:/state/Workflow/PageLayout/create-tiddler
 \function temp-tiddler-draft-title() [<temp-tiddler>get[draft.title]]

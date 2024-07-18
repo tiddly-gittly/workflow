@@ -1,8 +1,8 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/Workflow
+title: $:/plugins/linonetwo/workflow-editor/ui/PageLayout/Workflow
 name: <<lingo Name $:/plugins/linonetwo/workflow-editor/language/>>
 description: <<lingo Description $:/plugins/linonetwo/workflow-editor/language/>>
 tags: $:/tags/Layout
-icon: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/icon/workflow-icon
+icon: $:/plugins/linonetwo/workflow-editor/ui/icon/workflow-icon
 
 \whitespace trim
 \define containerClasses()
@@ -26,8 +26,8 @@ tc-page-container tc-page-view-$(storyviewTitle)$ tc-language-$(languageTitle)$ 
 		<$messagecatcher $tm-navigate=<<redirected-navigate-actions>>>
 			{{$:/core/ui/CommandPaletteTemplate}}
 			<div class=<<containerClasses>>>
-				{{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/EditorArea}}
-				{{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/BottomRightButtons}}
+				{{$:/plugins/linonetwo/workflow-editor/ui/PageLayout/EditorArea}}
+				{{$:/plugins/linonetwo/workflow-editor/ui/PageLayout/BottomRightButtons}}
 			</div>
 		</$messagecatcher>
 	</$navigator>

@@ -1,12 +1,12 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/BottomRightButtons
+title: $:/plugins/linonetwo/workflow-editor/ui/PageLayout/BottomRightButtons
 
 <div class="workflow-editor-layout-button-container">
   <$button class="workflow-editor-layout-add-button">
     {{$:/core/images/new-button}}
-    <$action-sendmessage $message="tm-modal" $param="$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModal" />
+    <$action-sendmessage $message="tm-modal" $param="$:/plugins/linonetwo/workflow-editor/ui/PageLayout/CreateNewTiddlerModal" />
   </$button>
   <$button class="workflow-editor-layout-add-button">
     {{$:/core/images/list}}
-    <$action-sendmessage $message="tm-modal" $param="$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/SwitchWorkflowModal" />
+    <$action-sendmessage $message="tm-modal" $param="$:/plugins/linonetwo/workflow-editor/ui/PageLayout/SwitchWorkflowModal" />
   </$button>
 </div>

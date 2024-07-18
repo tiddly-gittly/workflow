@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/EditTemplate/body/edit-bpmn
+title: $:/plugins/linonetwo/workflow-editor/ui/EditTemplate/body/edit-bpmn
 
 \procedure lingo-base() $:/language/EditTemplate/Body/
 

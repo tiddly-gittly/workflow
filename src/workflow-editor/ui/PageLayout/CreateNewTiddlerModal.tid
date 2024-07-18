@@ -1,6 +1,6 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModal
+title: $:/plugins/linonetwo/workflow-editor/ui/PageLayout/CreateNewTiddlerModal
 subtitle: {{$:/language/Buttons/NewTiddler/Caption}}
-footer: {{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModalFooter}}
+footer: {{$:/plugins/linonetwo/workflow-editor/ui/PageLayout/CreateNewTiddlerModalFooter}}
 mask-closable: yes
 
 <div class="workflow-editor-layout-create-new-tiddler-modal-container">

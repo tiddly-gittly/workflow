@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/ViewTemplate/body/view-bpmn
+title: $:/plugins/linonetwo/workflow-editor/ui/ViewTemplate/body/view-bpmn
 
 \define lingo-base() $:/language/ViewTemplate/Body/
 

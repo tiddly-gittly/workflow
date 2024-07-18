@@ -1,4 +1,4 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/EditorArea
+title: $:/plugins/linonetwo/workflow-editor/ui/PageLayout/EditorArea
 
 <% if [{$:/state/Workflow/PageLayout/focusedTiddler}match[]] %>
   <main class="workflow-editor-layout-main-area">

@@ -1,5 +1,5 @@
-title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/ViewTemplate/body/view-bpmn-cascade-filter
+title: $:/plugins/linonetwo/workflow-editor/ui/ViewTemplate/body/view-bpmn-cascade-filter
 tags: $:/tags/ViewTemplateBodyFilter
 list-before: $:/config/ViewTemplateBodyFilters/system
 
-[field:type[application/bpmn+xml]then[$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/ViewTemplate/body/view-bpmn]]
+[field:type[application/bpmn+xml]then[$:/plugins/linonetwo/workflow-editor/ui/ViewTemplate/body/view-bpmn]]
