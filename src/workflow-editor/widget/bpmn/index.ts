@@ -1,6 +1,7 @@
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
-import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel';
+import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule, CamundaPlatformPropertiesProviderModule } from 'bpmn-js-properties-panel';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
+import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json';
 import minimapModule from 'diagram-js-minimap';
 import { IChangedTiddlers } from 'tiddlywiki';
 
@@ -47,8 +48,12 @@ class BpmnJsWidget extends Widget {
         additionalModules: [
           BpmnPropertiesPanelModule,
           BpmnPropertiesProviderModule,
+          CamundaPlatformPropertiesProviderModule,
           minimapModule,
         ],
+        moddleExtensions: {
+          camunda: CamundaBpmnModdle,
+        },
       });
     }
     void this.openDiagram(this.editText ?? '', this.contentDiv);
