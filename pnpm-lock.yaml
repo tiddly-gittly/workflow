@@ -37,6 +37,9 @@ importers:
       diagram-js-minimap:
         specifier: ^5.1.0
         version: 5.1.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       npm-check-updates:
         specifier: ^16.14.20
         version: 16.14.20
@@ -53,6 +56,9 @@ importers:
       '@modern-js/tsconfig':
         specifier: ^2.55.0
         version: 2.55.0
+      '@types/lodash':
+        specifier: ^4.17.7
+        version: 4.17.7
       '@types/node':
         specifier: ^20.14.11
         version: 20.14.11
@@ -1426,6 +1432,9 @@ packages:
 
   '@types/less@3.0.6':
     resolution: {integrity: sha512-PecSzorDGdabF57OBeQO/xFbAkYWo88g4Xvnsx7LRwqLC17I7OoKtA3bQB9uXkY6UkMWCOsA8HSVpaoitscdXw==}
+
+  '@types/lodash@4.17.7':
+    resolution: {integrity: sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==}
 
   '@types/node@20.14.11':
     resolution: {integrity: sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==}
@@ -6845,6 +6854,8 @@ snapshots:
   '@types/json5@0.0.29': {}
 
   '@types/less@3.0.6': {}
+
+  '@types/lodash@4.17.7': {}
 
   '@types/node@20.14.11':
     dependencies:

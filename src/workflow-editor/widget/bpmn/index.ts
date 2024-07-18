@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule, CamundaPlatformPropertiesProviderModule } from 'bpmn-js-properties-panel';
 import type BaseModeler from 'bpmn-js/lib/BaseModeler';
@@ -5,7 +6,8 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import ReadonlyBpmnModeler from 'bpmn-js/lib/NavigatedViewer';
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json';
 import minimapModule from 'diagram-js-minimap';
-import { IChangedTiddlers } from 'tiddlywiki';
+import debounce from 'lodash/debounce';
+import { IChangedTiddlers, IParseTreeNode } from 'tiddlywiki';
 
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
@@ -22,6 +24,22 @@ class BpmnJsWidget extends Widget {
   private editText: string | undefined;
   private readonly = false;
   private contentDiv?: HTMLDivElement;
+  private readonly debouncedSaveXMLFromModeler: () => void;
+
+  constructor(parseTreeNode: IParseTreeNode, options: Record<string, unknown>) {
+    super(parseTreeNode, options);
+    this.onSave = this.onSave.bind(this);
+    this.debouncedSaveXMLFromModeler = debounce(async () => {
+      const xml = await this.modeler?.saveXML({ format: true });
+      // DEBUG: console xml
+      console.log(`xml`, xml);
+      // DEBUG: console this.editTitle
+      console.log(`this.editTitle`, this.editTitle);
+      if (xml?.xml && this.editTitle) {
+        this.onSave(this.editTitle, xml.xml);
+      }
+    });
+  }
 
   render(parent: Element, nextSibling: Element) {
     this.parentDomNode = parent;
@@ -34,7 +52,7 @@ class BpmnJsWidget extends Widget {
     this.contentDiv = bpmnjsDom({
       height: this.getAttribute('height', '400px'),
       width: this.getAttribute('width', '100%'),
-      readonly: this.readonly
+      readonly: this.readonly,
     });
     // Append to the parent
     nextSibling === null ? parent.append(this.contentDiv) : nextSibling.before(this.contentDiv);
@@ -86,6 +104,8 @@ class BpmnJsWidget extends Widget {
 
       $tw.utils.removeClass(container, 'with-error');
       $tw.utils.addClass(container, 'with-diagram');
+
+      this.modeler?.on('commandStack.changed', this.debouncedSaveXMLFromModeler);
     } catch (error) {
       $tw.utils.removeClass(container, 'with-diagram');
       $tw.utils.addClass(container, 'with-error');
@@ -124,19 +144,11 @@ class BpmnJsWidget extends Widget {
     return false;
   }
 
-  private get isDraft() {
-    const editTitle = this.getAttribute('tiddler');
-    return editTitle === undefined ? false : Boolean(this.getAttribute('draftTitle'));
-  }
-
   private readonly onSave = (title: string, newText: string): void => {
     /** if tiddler field is not filled in, just edit in the memory, don't save */
     if (title === '' || title === undefined) {
       return;
     }
-    // prevent save after destroy. On react unmount, emergency save in its willUnmount will try to call onSave. But when in story view and it is draft, this will cause save draft while tw is trying to delete draft. Cause draft not delete after end editing.
-    if (this.isDraft) return;
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const previousTiddler = $tw.wiki.getTiddler(title);
     // prevent useless call to addTiddler
     if (previousTiddler?.fields.text !== newText) {

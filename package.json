@@ -36,6 +36,7 @@
   "devDependencies": {
     "@modern-js/eslint-config": "^2.55.0",
     "@modern-js/tsconfig": "^2.55.0",
+    "@types/lodash": "^4.17.7",
     "@types/node": "^20.14.11",
     "dprint": "^0.47.2",
     "eslint-config-tidgi": "^1.2.3",
@@ -56,6 +57,7 @@
     "bpmn-server": "2.2.8",
     "camunda-bpmn-moddle": "^7.0.1",
     "diagram-js-minimap": "^5.1.0",
+    "lodash": "^4.17.21",
     "npm-check-updates": "^16.14.20",
     "tiddlywiki": "^5.3.5",
     "tiddlywiki-plugin-dev": "^0.2.1"
