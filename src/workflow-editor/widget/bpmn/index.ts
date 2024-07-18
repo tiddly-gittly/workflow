@@ -30,11 +30,8 @@ class BpmnJsWidget extends Widget {
     super(parseTreeNode, options);
     this.onSave = this.onSave.bind(this);
     this.debouncedSaveXMLFromModeler = debounce(async () => {
+      this.lock();
       const xml = await this.modeler?.saveXML({ format: true });
-      // DEBUG: console xml
-      console.log(`xml`, xml);
-      // DEBUG: console this.editTitle
-      console.log(`this.editTitle`, this.editTitle);
       if (xml?.xml && this.editTitle) {
         this.onSave(this.editTitle, xml.xml);
       }
