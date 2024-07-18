@@ -13,6 +13,7 @@ class BpmnJsWidget extends Widget {
   private modeler?: BpmnModeler;
   private editTitle: string | undefined;
   private editText: string | undefined;
+  private readonly = false;
 
   refresh(_changedTiddlers: IChangedTiddlers): boolean {
     return false;
@@ -40,6 +41,7 @@ class BpmnJsWidget extends Widget {
   execute() {
     this.editTitle = this.getAttribute('tiddler', this.getVariable('currentTiddler'));
     this.editText = this.getAttribute('text', $tw.wiki.getTiddlerText(this.editTitle) ?? '');
+    this.readonly = this.getAttribute('readonly', 'no') === 'yes';
   }
 
   private async openDiagram(xml: string, container: HTMLDivElement) {

@@ -1,0 +1,5 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/ViewTemplate/body/view-bpmn
+
+\define lingo-base() $:/language/ViewTemplate/Body/
+
+<$bpmn tiddler=<<currentTiddler>> readonly="yes" height="500px" />

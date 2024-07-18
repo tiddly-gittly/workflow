@@ -1,0 +1,5 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/EditTemplate/body/edit-bpmn-cascade-filter
+tags: $:/tags/EditTemplateBodyFilter
+list-before: $:/config/EditTemplateBodyFilters/default
+
+[field:type[application/bpmn+xml]then[$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/EditTemplate/body/edit-bpmn]]

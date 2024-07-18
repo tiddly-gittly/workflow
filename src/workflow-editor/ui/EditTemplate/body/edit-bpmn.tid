@@ -1,0 +1,8 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/EditTemplate/body/edit-bpmn
+
+\procedure lingo-base() $:/language/EditTemplate/Body/
+
+<div class="workflow-editor-edit-body-container">
+  <!-- title is `"Draft of 'AAA'"` from <<currentTiddler>> when in draft mode. -->
+  <$bpmn tiddler=<<currentTiddler>> draftTitle={{!!draft.title}} height="500px" />
+</div>
