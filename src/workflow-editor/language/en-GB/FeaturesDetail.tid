@@ -6,23 +6,6 @@ Any tiddler of type `application/bpmn+xml` is automatically displayed as a flowc
 
 You can also use [[bpmn.io|https://bpmn.io/]]'s online flowchart editor to edit the flowchart, and after editing, you can click the Save button to save the saved XML file to TiddlyWiki by dragging the file to the Wiki. If you encounter problems after saving to TiddlyWiki, you can check if the file type is `application/bpmn+xml`.
 
-!!! Flowchart Executor
-
-The ''Workflow'' tab in the sidebar shows all '''workflow''' definitions currently in the Wiki, as well as instances of '''executing''' workflows.
-
-* Workflow definitions, i.e., tiddlers of type `application/bpmn+xml`, you can edit them and modify the flowchart.
-** But workflow definitions are like construction drawings, they are static things.
-* A workflow instance is the dynamic execution of a process created by a workflow definition, like a house under construction based on construction drawings. ** Multiple houses can be created from the same drawing, so multiple workflow instances can be created from the same workflow definition.
-** You can click a workflow instance to view the dynamic execution of the workflow, including the execution of each step and the execution log.
-** The executions of workflow instances are automatically saved as tiddlers (`$:/workflow/state/xxx`), so you can automatically restore workflow instances that didn't finish executing based on them after restarting the Wiki. These tiddlers are automatically deleted after the workflow instance has finished executing.
-** The logs of workflow instances are only automatically saved as state tiddlers (`$:/state`), so they are not retained after closing the Wiki (otherwise some frequently executed workflows would generate a huge amount of logs and flood the Wiki).
-
-!!! Flowchart Executor Plugin
-
-There are some workflow definitions that rely on plugins to be executed, such as the AI-related external services provided by the [[$:/plugins/linonetwo/workflow-editor-ai]] plugin. These external services are automatically registered with the workflow executor when the Wiki starts, and you can see them in the "Plugins" sub-tab of the "Workflow" tab in the sidebar.
-
-These actuator plugins allow you to use more nodes when dragging a flowchart. Some flowchart definition plug-ins use these nodes and therefore depend on the corresponding flowchart executor plug-ins, and these required dependencies are automatically installed when installing via the CPL.
-
 !!! Flowchart Definition Plugins
 
 Since a flowchart definition is just a note with file type `application/bpmn+xml`, you can package several such notes as plugins and put them on the plugin market for distribution.

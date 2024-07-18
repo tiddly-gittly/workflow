@@ -3,4 +3,4 @@ modified: 20221228055915176
 title: $:/DefaultTiddlers
 type: text/vnd.tiddlywiki
 
-$:/plugins/linonetwo/workflow-engine/readme $:/plugins/linonetwo/workflow-editor/readme
+log-console.bpmn $:/plugins/linonetwo/workflow-engine/readme $:/plugins/linonetwo/workflow-editor/readme
