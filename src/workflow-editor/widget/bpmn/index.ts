@@ -1,6 +1,8 @@
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule, CamundaPlatformPropertiesProviderModule } from 'bpmn-js-properties-panel';
+import type BaseModeler from 'bpmn-js/lib/BaseModeler';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
+import ReadonlyBpmnModeler from 'bpmn-js/lib/NavigatedViewer';
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json';
 import minimapModule from 'diagram-js-minimap';
 import { IChangedTiddlers } from 'tiddlywiki';
@@ -15,7 +17,7 @@ import './index.scss';
 import { bpmnjsDom } from '../../ui/bpmnjs-dom';
 
 class BpmnJsWidget extends Widget {
-  private modeler?: BpmnModeler;
+  private modeler?: BaseModeler;
   private editTitle: string | undefined;
   private editText: string | undefined;
   private readonly = false;
@@ -32,29 +34,42 @@ class BpmnJsWidget extends Widget {
     this.contentDiv = bpmnjsDom({
       height: this.getAttribute('height', '400px'),
       width: this.getAttribute('width', '100%'),
+      readonly: this.readonly
     });
     // Append to the parent
     nextSibling === null ? parent.append(this.contentDiv) : nextSibling.before(this.contentDiv);
     const canvasElement = this.parentDomNode.querySelector<HTMLCanvasElement>('#js-canvas');
     if (canvasElement !== null) {
-      this.modeler = new BpmnModeler({
-        container: canvasElement,
-        keyboard: {
-          bindTo: this.parentDomNode,
-        },
-        propertiesPanel: {
-          parent: '#js-properties-panel',
-        },
-        additionalModules: [
-          BpmnPropertiesPanelModule,
-          BpmnPropertiesProviderModule,
-          CamundaPlatformPropertiesProviderModule,
-          minimapModule,
-        ],
-        moddleExtensions: {
-          camunda: CamundaBpmnModdle,
-        },
-      });
+      this.modeler = this.readonly
+        ? new ReadonlyBpmnModeler({
+          container: canvasElement,
+          keyboard: {
+            bindTo: this.parentDomNode,
+          },
+          additionalModules: [
+            minimapModule,
+          ],
+        })
+        : new BpmnModeler(
+          {
+            container: canvasElement,
+            keyboard: {
+              bindTo: this.parentDomNode,
+            },
+            propertiesPanel: {
+              parent: '#js-properties-panel',
+            },
+            additionalModules: [
+              BpmnPropertiesPanelModule,
+              BpmnPropertiesProviderModule,
+              CamundaPlatformPropertiesProviderModule,
+              minimapModule,
+            ],
+            moddleExtensions: {
+              camunda: CamundaBpmnModdle,
+            },
+          },
+        );
     }
     void this.openDiagram(this.editText ?? '', this.contentDiv);
   }

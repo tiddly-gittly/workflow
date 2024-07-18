@@ -22,7 +22,7 @@ function createMessageDiv(className: string, children: Element[], isError = fals
   });
 }
 
-export function bpmnjsDom({ width, height }: { height?: string; width?: string }): HTMLDivElement {
+export function bpmnjsDom({ width, height, readonly }: { height?: string; readonly: boolean; width?: string }): HTMLDivElement {
   // Create the 'content' div with its children
   const contentDiv = $tw.utils.domMaker('div', {
     attributes: {
@@ -40,7 +40,7 @@ export function bpmnjsDom({ width, height }: { height?: string; width?: string }
         $tw.utils.domMaker('span', { text: 'Ooops, we could not display the BPMN 2.0 diagram.' }),
       ], true),
       $tw.utils.domMaker('div', { attributes: { class: 'canvas', id: 'js-canvas' } }),
-      $tw.utils.domMaker('div', { attributes: { class: 'properties-panel-parent', id: 'js-properties-panel' } }),
+      ...(readonly ? [] : [$tw.utils.domMaker('div', { attributes: { class: 'properties-panel-parent', id: 'js-properties-panel' } })]),
     ],
   });
 

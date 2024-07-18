@@ -5,8 +5,8 @@ export const twServiceProvider: IServiceProvider = {
     console.log('log-console service called:', input);
   },
   a: {
-    b: () => {
-      console.log('b is called');
+    b: (param) => {
+      console.log(`b is called with ${JSON.stringify(param)}`);
     },
   },
 };
