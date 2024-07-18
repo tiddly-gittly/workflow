@@ -1,0 +1,12 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/EditorArea
+
+<% if [{$:/state/Workflow/PageLayout/focusedTiddler}match[]] %>
+  <main class="workflow-editor-layout-main-area">
+    <$bpmn tiddler="$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial.bpmn" height="100%" readonly="yes" />
+  </main>
+<% else %>
+  <!-- default value, when first opened, select widget's state tiddler is empty, but default value filter gives a value, we show that tiddler -->
+  <main class="workflow-editor-layout-main-area">
+    <$bpmn tiddler={{$:/state/Workflow/PageLayout/focusedTiddler}} height="100%" />
+  </main>
+<% endif %>

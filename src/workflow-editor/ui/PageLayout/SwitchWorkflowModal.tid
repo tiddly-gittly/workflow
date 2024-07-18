@@ -7,10 +7,10 @@ mask-closable: yes
 	<!-- default to recently used workflow tiddler -->
 	<$select
     tiddler="$:/state/Workflow/PageLayout/focusedTiddler"
-    default={{{[all[shadows+tiddlers]field:type[application/vnd.tldraw+json]sort[modified]first[]] -[[$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial]]}}}
+    default={{$:/state/Workflow/PageLayout/focusedTiddler}}
     actions='<$action-sendmessage $message="tm-close-tiddler"/>'
   >
-		<$list filter='[all[shadows+tiddlers]field:type[application/vnd.tldraw+json]sort[modified]] -[[$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial]]'>
+		<$list filter='[all[shadows+tiddlers]field:type[application/bpmn+xml]sort[modified]] -[[$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial.bpmn]]'>
 			<option value=<<currentTiddler>>>
 				<$transclude field="caption">
 					<$view field="title"/>

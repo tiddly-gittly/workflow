@@ -2,7 +2,7 @@ title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/Workflow
 name: <<lingo Name $:/plugins/linonetwo/workflow-editor/language/>>
 description: <<lingo Description $:/plugins/linonetwo/workflow-editor/language/>>
 tags: $:/tags/Layout
-icon: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/workflow-icon
+icon: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/icon/workflow-icon
 
 \whitespace trim
 \define containerClasses()
@@ -26,16 +26,8 @@ tc-page-container tc-page-view-$(storyviewTitle)$ tc-language-$(languageTitle)$ 
 		<$messagecatcher $tm-navigate=<<redirected-navigate-actions>>>
 			{{$:/core/ui/CommandPaletteTemplate}}
 			<div class=<<containerClasses>>>
-				<% if [{$:/state/Workflow/PageLayout/focusedTiddler}match[]] %>
-					<main class="workflow-editor-layout-main-area">
-						<$workflow tiddler="$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial" height="100vh" focused="yes" readonly="yes" />
-					</main>
-				<% else %>
-					<!-- default value, when first opened, select widget's state tiddler is empty, but default value filter gives a value, we show that tiddler -->
-					<main class="workflow-editor-layout-main-area">
-						<$workflow tiddler={{$:/state/Workflow/PageLayout/focusedTiddler}} height="100vh" focused="yes" />
-					</main>
-				<% endif %>
+				{{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/EditorArea}}
+				{{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/BottomRightButtons}}
 			</div>
 		</$messagecatcher>
 	</$navigator>

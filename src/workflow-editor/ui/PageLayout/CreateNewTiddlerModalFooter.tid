@@ -10,7 +10,7 @@ title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTi
   disabled={{{ [<temp-tiddler>get[draft.title]else[yes]] }}}
 >
   {{$:/language/Buttons/NewTiddler/Caption}}
-  <$action-createtiddler $basetitle=<<temp-tiddler-draft-title>> tags=<<temp-tiddler-tags>> type="application/vnd.tldraw+json">
+  <$action-createtiddler $basetitle=<<temp-tiddler-draft-title>> tags=<<temp-tiddler-tags>> type="application/bpmn+xml" text={{$:/plugins/linonetwo/workflow-editor/examples/Empty.bpmn}}>
     <$action-deletetiddler $tiddler=<<temp-tiddler>>/>
     <$action-setfield $tiddler="$:/state/Workflow/PageLayout/focusedTiddler" text=<<createTiddler-title>>/>
   </$action-createtiddler>

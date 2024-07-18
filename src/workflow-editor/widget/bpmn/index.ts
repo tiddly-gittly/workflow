@@ -14,19 +14,24 @@ class BpmnJsWidget extends Widget {
   private editTitle: string | undefined;
   private editText: string | undefined;
   private readonly = false;
+  private contentDiv?: HTMLDivElement;
 
   render(parent: Element, nextSibling: Element) {
     this.parentDomNode = parent;
+    this.computeAttributes();
     this.execute();
 
-    const contentDiv = bpmnjsDom({
+    if (this.contentDiv !== undefined) {
+      this.parentDomNode.removeChild(this.contentDiv);
+    }
+    this.contentDiv = bpmnjsDom({
       height: this.getAttribute('height', '400px'),
       width: this.getAttribute('width', '100%'),
     });
     // Append to the parent
-    nextSibling === null ? parent.append(contentDiv) : nextSibling.before(contentDiv);
+    nextSibling === null ? parent.append(this.contentDiv) : nextSibling.before(this.contentDiv);
     const canvasElement = this.parentDomNode.querySelector<HTMLCanvasElement>('#js-canvas');
-    if (this.modeler === undefined && canvasElement !== null) {
+    if (canvasElement !== null) {
       this.modeler = new BpmnModeler({
         container: canvasElement,
         keyboard: {
@@ -34,7 +39,7 @@ class BpmnJsWidget extends Widget {
         },
       });
     }
-    void this.openDiagram(this.editText ?? '', contentDiv);
+    void this.openDiagram(this.editText ?? '', this.contentDiv);
   }
 
   execute() {
@@ -106,8 +111,8 @@ class BpmnJsWidget extends Widget {
       // use setText for DraftTiddler, otherwise if use addTiddler we will make it a real tiddler immediately.
       $tw.wiki.setText(title, 'text', undefined, newText);
       // set tiddler type
-      if (previousTiddler?.fields.type !== 'application/vnd.tldraw+json') {
-        $tw.wiki.setText(title, 'type', undefined, 'application/vnd.tldraw+json');
+      if (previousTiddler?.fields.type !== 'application/bpmn+xml') {
+        $tw.wiki.setText(title, 'type', undefined, 'application/bpmn+xml');
       }
     }
     this.unlock();
