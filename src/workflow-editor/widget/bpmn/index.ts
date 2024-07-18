@@ -23,18 +23,21 @@ class BpmnJsWidget extends Widget {
     this.parentDomNode = parent;
     this.execute();
 
-    if (this.modeler === undefined) {
+    const contentDiv = bpmnjsDom({
+      height: this.getAttribute('height', '400px'),
+      width: this.getAttribute('width', '100%'),
+    });
+    // Append to the parent
+    nextSibling === null ? parent.append(contentDiv) : nextSibling.before(contentDiv);
+    const canvasElement = this.parentDomNode.querySelector<HTMLCanvasElement>('#js-canvas');
+    if (this.modeler === undefined && canvasElement !== null) {
       this.modeler = new BpmnModeler({
-        container: '#js-canvas',
+        container: canvasElement,
         keyboard: {
-          bindTo: window,
+          bindTo: this.parentDomNode,
         },
       });
     }
-    const { buttonsUl, contentDiv } = bpmnjsDom();
-    // Append to the parent
-    nextSibling === null ? parent.append(contentDiv, buttonsUl) : nextSibling.before(contentDiv, buttonsUl);
-    this.domNodes.push(contentDiv, buttonsUl);
     void this.openDiagram(this.editText ?? '', contentDiv);
   }
 

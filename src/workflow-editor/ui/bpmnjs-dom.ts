@@ -33,12 +33,13 @@ function createLinkListItem(id: string, text: string, title: string): Element {
   });
 }
 
-export function bpmnjsDom() {
+export function bpmnjsDom({ width, height }: { height?: string; width?: string }): HTMLDivElement {
   // Create the 'content' div with its children
   const contentDiv = $tw.utils.domMaker('div', {
     attributes: {
       class: 'content',
       id: 'js-drop-zone',
+      style: `height: ${height ?? '"unset"'}; width: ${width ?? '"unset"'};`,
     },
     children: [
       createMessageDiv('intro', [
@@ -53,18 +54,5 @@ export function bpmnjsDom() {
     ],
   });
 
-  // Create the 'buttons' ul with its children
-  const buttonsUl = $tw.utils.domMaker('ul', {
-    attributes: { class: 'buttons' },
-    children: [
-      $tw.utils.domMaker('li', { text: 'download' }),
-      createLinkListItem('js-download-diagram', 'BPMN diagram', 'download BPMN diagram'),
-      createLinkListItem('js-download-svg', 'SVG image', 'download as SVG image'),
-    ],
-  });
-
-  return {
-    contentDiv,
-    buttonsUl,
-  };
+  return contentDiv;
 }
