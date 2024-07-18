@@ -1,0 +1,14 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModal
+subtitle: {{$:/language/Buttons/NewTiddler/Caption}}
+footer: {{$:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/CreateNewTiddlerModalFooter}}
+mask-closable: yes
+
+<div class="workflow-editor-layout-create-new-tiddler-modal-container">
+
+  <h2>{{$:/language/ControlPanel/Basics/NewTiddler/Title/Prompt}}</h2>
+
+  {{$:/state/Workflow/PageLayout/create-tiddler||$:/core/ui/EditTemplate/title}}
+
+  {{$:/state/Workflow/PageLayout/create-tiddler||$:/core/ui/EditTemplate/tags}}
+
+</div>

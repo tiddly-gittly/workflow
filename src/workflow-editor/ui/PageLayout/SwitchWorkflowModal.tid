@@ -1,0 +1,22 @@
+title: $:/plugins/linonetwo/workflow-editor/tiddlywiki-ui/PageLayout/SwitchWorkflowModal
+subtitle: <<lingo SwitchBoardTiddler $:/plugins/linonetwo/workflow-editor/language/>>
+mask-closable: yes
+
+<div class="workflow-editor-layout-switch-board-modal-container">
+
+	<!-- default to recently used workflow tiddler -->
+	<$select
+    tiddler="$:/state/Workflow/PageLayout/focusedTiddler"
+    default={{{[all[shadows+tiddlers]field:type[application/vnd.tldraw+json]sort[modified]first[]] -[[$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial]]}}}
+    actions='<$action-sendmessage $message="tm-close-tiddler"/>'
+  >
+		<$list filter='[all[shadows+tiddlers]field:type[application/vnd.tldraw+json]sort[modified]] -[[$:/plugins/linonetwo/workflow-editor/examples/WorkflowTutorial]]'>
+			<option value=<<currentTiddler>>>
+				<$transclude field="caption">
+					<$view field="title"/>
+				</$transclude>
+			</option>
+		</$list>
+	</$select>
+
+</div>

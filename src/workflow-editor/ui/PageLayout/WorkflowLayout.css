@@ -1,0 +1,35 @@
+.workflow-editor-layout-main-area {
+  height: 100vh;
+  width: 100vw;
+}
+
+div.workflow-editor-layout-container {
+  margin-top: 0px;
+}
+.workflow-editor-layout-container p {
+  margin: 0;
+}
+
+.tc-modal-body:has(.workflow-editor-layout-create-new-tiddler-modal-container) {
+  overflow-y: visible;
+}
+.workflow-editor-layout-create-new-tiddler-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+.workflow-editor-layout-create-new-tiddler-modal-container input {
+  width: 100%;
+  font-size: 1.5em;
+  height: 2em;
+}
+.workflow-editor-layout-create-new-tiddler-modal-button {
+  font-size: 2em;
+}
+
+.workflow-editor-layout-switch-board-modal-container, .workflow-editor-layout-switch-board-modal-container select {
+  width: 100%;
+  font-size: 2em;
+}
