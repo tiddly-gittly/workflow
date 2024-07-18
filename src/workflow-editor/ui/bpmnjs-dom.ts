@@ -22,17 +22,6 @@ function createMessageDiv(className: string, children: Element[], isError = fals
   });
 }
 
-function createLinkListItem(id: string, text: string, title: string): Element {
-  return $tw.utils.domMaker('li', {
-    children: [
-      $tw.utils.domMaker('a', {
-        attributes: { id, href: '#', title },
-        text,
-      }),
-    ],
-  });
-}
-
 export function bpmnjsDom({ width, height }: { height?: string; width?: string }): HTMLDivElement {
   // Create the 'content' div with its children
   const contentDiv = $tw.utils.domMaker('div', {
