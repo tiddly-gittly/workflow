@@ -40,6 +40,7 @@ export function bpmnjsDom({ width, height }: { height?: string; width?: string }
         $tw.utils.domMaker('span', { text: 'Ooops, we could not display the BPMN 2.0 diagram.' }),
       ], true),
       $tw.utils.domMaker('div', { attributes: { class: 'canvas', id: 'js-canvas' } }),
+      $tw.utils.domMaker('div', { attributes: { class: 'properties-panel-parent', id: 'js-properties-panel' } }),
     ],
   });
 

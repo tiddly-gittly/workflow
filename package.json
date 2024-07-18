@@ -48,11 +48,13 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@bpmn-io/properties-panel": "^3.22.2",
     "@lukeed/uuid": "^2.0.1",
     "bpmn-engine": "^22.0.1",
     "bpmn-js": "^17.9.1",
     "bpmn-js-properties-panel": "^5.18.0",
     "bpmn-server": "2.2.8",
+    "diagram-js-minimap": "^5.1.0",
     "npm-check-updates": "^16.14.20",
     "tiddlywiki": "^5.3.5",
     "tiddlywiki-plugin-dev": "^0.2.1"

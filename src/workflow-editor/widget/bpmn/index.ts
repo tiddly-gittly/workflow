@@ -1,11 +1,15 @@
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
+import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
+import minimapModule from 'diagram-js-minimap';
 import { IChangedTiddlers } from 'tiddlywiki';
 
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-import './index.css';
+import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
+import 'diagram-js-minimap/assets/diagram-js-minimap.css';
+import './index.scss';
 
 import { bpmnjsDom } from '../../ui/bpmnjs-dom';
 
@@ -37,6 +41,14 @@ class BpmnJsWidget extends Widget {
         keyboard: {
           bindTo: this.parentDomNode,
         },
+        propertiesPanel: {
+          parent: '#js-properties-panel',
+        },
+        additionalModules: [
+          BpmnPropertiesPanelModule,
+          BpmnPropertiesProviderModule,
+          minimapModule,
+        ],
       });
     }
     void this.openDiagram(this.editText ?? '', this.contentDiv);
