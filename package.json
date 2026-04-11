@@ -65,6 +65,9 @@
   "pnpm": {
     "patchedDependencies": {
       "bpmn-server@2.2.8": "patches/bpmn-server@2.2.8.patch"
+    },
+    "overrides": {
+      "esbuild-plugin-browserslist": "1.0.2"
     }
   }
 }
